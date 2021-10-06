@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>{{post.title_tag}}</title>
+{% endblock %}
+{% block content %}
+<div class="container">
+
+  <div class="jumbotron">
+
+      <h1>{{ post.title }}</h1>
+
+      <div> Created {{post.post_date}} by
+        <a href="user/{{post.user.pk}}">{{post.user.username}}</a></li>
+      </div>
+      <!-- <img src="/Media/{{post.image}}" height="130" width="130" > -->
+
+      <p class = "lead" >{{ post.body|safe }}</p>
+
+      
+  </div>
+
+  <h2>Comments:</h2>
+
+  {% for comment in comments %}
+      <div class="well">
+          <div> Created {{ comment.pub_date }} by
+              <a href="/user/{{comment.user.pk}}">{{comment.user.username}}</a>
+          </div>
+          <h3> {{ comment.body }}</h3>
+
+      </div>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+
+      <!-- Comment button -->
+      <a href="/create_comment/{{post.pk}}" class="col-md-2 pull-right">
+          <button type="button" class="btn btn-primary btn-block">Comment</button>
+      </a>
+
+  {% endif %}
+
+</div>
+
+{% endblock %}
